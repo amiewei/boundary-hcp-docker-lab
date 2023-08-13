@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -v
-export HOSTIP=192.168.86.250
+export HOSTIP=192.168.1.199
 
 ## Setuo K8s using Kind server 
 
@@ -247,7 +247,6 @@ export K8S_PROJECT_ID=$(boundary scopes create \
 
 ### DEPLOY CREDENTIAL STORE AND LIBRARY
 
-
 export SERVER_CRED_STORE_ID=$(boundary credential-stores create vault \
  -name="Vault Server Cred Store" \
  -worker-filter='"dockerlab" in "/tags/type"' \
@@ -330,7 +329,31 @@ export K8S_TARGET=$(boundary targets create tcp \
    -egress-worker-filter='"dockerlab" in "/tags/type"' \
    -format=json | jq -r '.item.id')
 
+## echo out all the environment variables that's been set for troubleshooting
+echo "K8S_CRED_STORE_TOKEN=$K8S_CRED_STORE_TOKEN"
+echo "SERVER_CRED_STORE_TOKEN=$SERVER_CRED_STORE_TOKEN"
+echo "DB_CRED_STORE_TOKEN=$DB_CRED_STORE_TOKEN"
+echo "ORG_ID=$ORG_ID"
+echo "PROJECT_ID=$PROJECT_ID"
+echo "DB_PROJECT_ID=$DB_PROJECT_ID"
+echo "K8S_PROJECT_ID=$K8S_PROJECT_ID"
 
+## not working
+echo "SERVER_CRED_STORE_ID=$SERVER_CRED_STORE_ID"
+echo "DB_CRED_STORE_ID=$DB_CRED_STORE_ID"
+echo "SERVER_CRED_LIB_ID=$SERVER_CRED_LIB_ID"
+echo "K8S_CRED_STORE_ID=$K8S_CRED_STORE_ID"
+echo "K8S_CRED_LIB_ID=$K8S_CRED_LIB_ID"
+echo "K8S_SECRET_CRED_LIB_ID=$K8S_SECRET_CRED_LIB_ID"
+##
+
+echo "LINUX_TCP_TARGET=$LINUX_TCP_TARGET"
+echo "LINUX_SSH_TARGET=$LINUX_SSH_TARGET"
+echo "K8S_TARGET_PORT=$K8S_TARGET_PORT"
+echo "K8S_TARGET=$K8S_TARGET"
+
+
+## boundary Add targets
 boundary targets add-credential-sources \
 -id $K8S_TARGET \
 -brokered-credential-source=$K8S_SECRET_CRED_LIB_ID 

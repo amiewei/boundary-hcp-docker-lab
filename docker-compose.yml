@@ -15,9 +15,9 @@ services:
       - IPC_LOCK
     entrypoint: boundary-worker server -config=/boundary-hcp-worker/config/config.hcl
 
-  vault:
+  vault-for-boundary:
     image: hashicorp/vault
-    container_name: vault
+    container_name: vault-for-boundary
     ports:
       - "8200:8200"
     restart: always

@@ -34,3 +34,11 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+
+# Other files if not destroyed
+*.crt
+cluster.yaml
+init.txt
+vault-cluster-role.yaml
+./config/boundary/file/* 
+./config/vault/file/* 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -v
-export HOSTIP=192.168.86.250
+export HOSTIP=192.168.1.199
 
 ## Setuo K8s using Kind server 
 
