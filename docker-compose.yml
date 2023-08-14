@@ -17,7 +17,6 @@ services:
 
   vault-for-boundary:
     image: hashicorp/vault-enterprise
-    # image: hashicorp/vault
     container_name: vault-for-boundary
     ports:
       - "8200:8200"
@@ -26,13 +25,11 @@ services:
       - ./config/vault/logs:/vault/logs
       - ./config/vault/file:/vault/file
       - ./config/vault/config:/vault/config
-      - /Users/amie.wei/Documents/license/vault.hclic:/etc/vault.d/vault.hclic
-    env_file: 
-      - .env
+    environment: 
+      - VAULT_LICENSE=${VAULT_LICENSE}
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/vault.hcl 
-
 
 
   openssh-server:
