@@ -1,11 +1,35 @@
-storage "file" {
-  path =  "/vault/file"
+// storage "file" {
+//   path =  "/vault/file"
+// }
+
+// storage "raft" {
+//   path    = "/vault/file"
+//   node_id = "node1"
+// }
+
+// listener "tcp" {
+//   address = "0.0.0.0:8200"
+//   tls_disable = 1
+// }
+// api_addr = "http://0.0.0.0:8200"
+// cluster_addr = "http://0.0.0.0:8201"
+// ui = true
+// log_level = "INFO"
+// // license_path = "/etc/vault.d/vault.hclic"
+
+storage "raft" {
+  path    = "/vault/file"
+  node_id = "node1"
 }
+
 listener "tcp" {
-  address = "0.0.0.0:8200"
+  address     = "0.0.0.0:8200"
   tls_disable = 1
 }
-api_addr = "http://0.0.0.0:8200"
-cluster_addr = "http://0.0.0.0:8200"
-ui = true
-#license_path = "/vault/file/vault.hcl"
+
+api_addr     = "http://0.0.0.0:8200"
+cluster_addr = "http://0.0.0.0:8201"
+ui           = true
+
+#license file within the container:
+license_path = "/etc/vault.d/vault.hclic"

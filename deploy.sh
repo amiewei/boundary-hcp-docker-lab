@@ -191,7 +191,7 @@ path "k8s-secret/data/k8s-cluster" {
  capabilities = ["read"]
 }' | vault policy write k8s-policy -
 
-
+#lease for token is 20min, and at half the lease time, boundary has job to auto-renew token from vault
 export K8S_CRED_STORE_TOKEN=$(vault token create \
     -no-default-policy=true \
     -policy="k8s-policy" \
@@ -220,8 +220,6 @@ export DB_CRED_STORE_TOKEN=$(vault token create \
     -format=json | jq -r .auth.client_token)
 
 ### DEPLOY BOUNDARY ORGS AND PROJECTS
-
-
 export ORG_ID=$(boundary scopes create \
  -scope-id=global -name="Docker Lab" \
  -description="Docker Org" \
@@ -337,16 +335,12 @@ echo "ORG_ID=$ORG_ID"
 echo "PROJECT_ID=$PROJECT_ID"
 echo "DB_PROJECT_ID=$DB_PROJECT_ID"
 echo "K8S_PROJECT_ID=$K8S_PROJECT_ID"
-
-## not working
 echo "SERVER_CRED_STORE_ID=$SERVER_CRED_STORE_ID"
 echo "DB_CRED_STORE_ID=$DB_CRED_STORE_ID"
 echo "SERVER_CRED_LIB_ID=$SERVER_CRED_LIB_ID"
 echo "K8S_CRED_STORE_ID=$K8S_CRED_STORE_ID"
 echo "K8S_CRED_LIB_ID=$K8S_CRED_LIB_ID"
 echo "K8S_SECRET_CRED_LIB_ID=$K8S_SECRET_CRED_LIB_ID"
-##
-
 echo "LINUX_TCP_TARGET=$LINUX_TCP_TARGET"
 echo "LINUX_SSH_TARGET=$LINUX_SSH_TARGET"
 echo "K8S_TARGET_PORT=$K8S_TARGET_PORT"
