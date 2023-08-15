@@ -96,7 +96,7 @@ ipconfig getifaddr en0
 chmod +x ./start.sh
 ```
 
-3. Execute the command to do the configuraiton.
+3. Execute the command to do the configuraiton. (Best to wait for a few till worker is setup in Boundary)
 
 ```
 ./start.sh
