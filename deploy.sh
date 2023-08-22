@@ -66,6 +66,14 @@ kubectl apply -f vault-cluster-role.yaml
 
 export VAULT_ADDR=http://${HOSTIP}:8200
 
+echo "vault namespace:"
+echo $VAULT_NAMESPACE
+
+#ensure namespace is not set...
+unset VAULT_NAMESPACE
+echo "vault namespace:"
+echo $VAULT_NAMESPACE
+
 vault operator init -key-shares=1  -key-threshold=1 --format json >> init.txt
 export ROOT_TOKEN=$(cat init.txt | jq -r .root_token)
 export UNSEAL_KEY=$(cat init.txt | jq -r .unseal_keys_b64[0])
