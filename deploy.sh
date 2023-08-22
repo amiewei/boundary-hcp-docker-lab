@@ -73,8 +73,7 @@ export UNSEAL_KEY=$(cat init.txt | jq -r .unseal_keys_b64[0])
 vault operator unseal $UNSEAL_KEY
 vault login $ROOT_TOKEN
 
-
-
+export VAULT_TOKEN=$ROOT_TOKEN
 export VAULT_SVC_ACCT_TOKEN="$(kubectl get secret -n vault `kubectl get serviceaccounts vault -n vault -o jsonpath='{.secrets[0].name}'` -o jsonpath='{.data.token}' | base64 -d)" 
 
 export KUBE_API_URL=$(kubectl config view -o jsonpath="{.clusters[?(@.name == \"$(kubectl config current-context)\")].cluster.server}")

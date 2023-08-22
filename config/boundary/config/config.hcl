@@ -6,7 +6,7 @@ listener "tcp" {
 }
 
 worker {
-  initial_upstreams = ["f8908630-55af-8e68-0ba7-dc289b14996f.proxy.boundary.hashicorp.cloud:9202"]  //update this with the ip of your hcp-worker
+  initial_upstreams = ["a8fe3ee6-bcd1-f630-00da-d66a87b2f153.proxy.boundary.hashicorp.cloud:9202"]  //update this with the ip of your hcp-worker
   auth_storage_path = "/boundary-hcp-worker/file/dockerlabworker"
   tags {
     type = ["worker", "dockerlab"]
