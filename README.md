@@ -31,7 +31,7 @@ listener "tcp" {
 }
 
 worker {
-  initial_upstreams = ["777777-4dd4-20df-521c-54ae2f867e71.proxy.boundary.hashicorp.cloud:9202"]
+  initial_upstreams = ["777777-4dd4-20df-521c-54ae2f867e71.proxy.boundary.hashicorp.cloud:9202"] #update this with your hpc-managed worker ip address - note this is not a static ip
   auth_storage_path = "/boundary-hcp-worker/file/worker"
   tags {
     type = ["worker", "dockerlab"]

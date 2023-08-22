@@ -65,15 +65,23 @@ kubectl apply -f vault-cluster-role.yaml
 ### DEPLOY VAULT 
 
 export VAULT_ADDR=http://${HOSTIP}:8200
+echo "vault namespace:"
+echo $VAULT_NAMESPACE
 
 vault operator init -key-shares=1  -key-threshold=1 --format json >> init.txt
 export ROOT_TOKEN=$(cat init.txt | jq -r .root_token)
 export UNSEAL_KEY=$(cat init.txt | jq -r .unseal_keys_b64[0])
 
+echo 'root token & unseal key:'
+echo $ROOT_TOKEN
+echo $UNSEAL_KEY
+
 vault operator unseal $UNSEAL_KEY
 vault login $ROOT_TOKEN
 
-
+export VAULT_TOKEN=$ROOT_TOKEN
+echo $VAULT_TOKEN
+vault token lookup
 
 export VAULT_SVC_ACCT_TOKEN="$(kubectl get secret -n vault `kubectl get serviceaccounts vault -n vault -o jsonpath='{.secrets[0].name}'` -o jsonpath='{.data.token}' | base64 -d)" 
 
